@@ -9,8 +9,20 @@ export class Negotiation {
         this._value = value;
     }
 
+<<<<<<< HEAD
     get date() {
         const data = new Date(this._date.getTime());
         return data;
+=======
+    get getDate() {
+        return this._date;
+    }
+
+    get getQuantity(){
+        return this._quantity;
+    }
+    get getValue(){
+        return this._value;
+>>>>>>> feat/negotiations-table
     }
 }
