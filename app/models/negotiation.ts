@@ -10,6 +10,7 @@ export class Negotiation {
     }
 
     get date() {
-        return this._date;
+        const data = new Date(this._date.getTime());
+        return data;
     }
 }
