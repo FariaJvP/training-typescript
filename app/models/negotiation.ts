@@ -9,7 +9,14 @@ export class Negotiation {
         this._value = value;
     }
 
-    get date() {
+    get getDate() {
         return this._date;
+    }
+
+    get getQuantity(){
+        return this._quantity;
+    }
+    get getValue(){
+        return this._value;
     }
 }
