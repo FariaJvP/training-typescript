@@ -1,6 +1,6 @@
 import { Negotiations } from "../models/negotiations.js";
 import { View } from "./view.js";
-export class NegotiationView extends View {
+export class NegotiationView extends View<Negotiations> {
 
     template(negotiations: Negotiations): string { 
         return `
@@ -31,10 +31,6 @@ export class NegotiationView extends View {
                 </tbody>
             </table>
         `;
-    }
-
-    update(negotiations: Negotiations): void {
-        this.element.innerHTML = this.template(negotiations)
     }
     
 }
