@@ -18,7 +18,7 @@ export class NegotiationController {
         this.negotiationsView.update(this.negotiations);
     }
     
-    toNegotiation() {
+    public toNegotiation() {
 
         const regex = /-/g;
         const date = new Date(this.inputDate.value.replace(regex, ','))
@@ -31,9 +31,10 @@ export class NegotiationController {
         this.negotiations.addNegotiation(negotiation);
         this.negotiationsView.update(this.negotiations);
         this.messageView.update("negotiation added")
+        this.clearForm();
     }
 
-    clearForm(): void {
+    private clearForm(): void {
         document.querySelector('form').reset()
         this.inputDate.focus();
     }

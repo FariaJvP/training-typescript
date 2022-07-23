@@ -7,5 +7,4 @@ const requestform = document.querySelector(".form");
 requestform.addEventListener('submit', (event: Event) => {
     event.preventDefault();
     negotiationController.toNegotiation();
-    negotiationController.clearForm();
 })
