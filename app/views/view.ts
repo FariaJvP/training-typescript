@@ -8,7 +8,7 @@ export abstract class View<T> {
         this.element = document.querySelector(selector);
     }
 
-    abstract template(resource: T): string;
+    protected abstract template(resource: T): string;
 
 
     update(resource: T): void {
