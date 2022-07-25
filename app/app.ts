@@ -1,10 +1,14 @@
 import { NegotiationController } from "./controllers/negotiation-controller.js";
+import { NegotiationDTO } from "./controllers/negotiationDTO.js";
 
-const negotiationController = new NegotiationController();
+const negotiationController = new NegotiationController(new NegotiationDTO);
 const requestform = document.querySelector(".form");
 
-
-requestform.addEventListener('submit', (event: Event) => {
-    event.preventDefault();
-    negotiationController.toNegotiation();
-})
+if(requestform){
+    requestform.addEventListener('submit', (event: Event) => {
+        event.preventDefault();
+        negotiationController.receiveFormRequest();
+    });
+} else {
+    throw Error("Could not launch the application! please check the form for errors");
+}
