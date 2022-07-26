@@ -1,3 +1,4 @@
+import { ExecutionTime } from "../decorators/executionTime.js";
 import { Negotiations } from "../models/negotiations.js";
 import { MessageView } from "../views/message-view.js";
 import { NegotiationView } from "../views/negotiation-view.js";
@@ -14,7 +15,8 @@ export class NegotiationController {
         this.negotiationsView.update(this.negotiations);
     }
 
-    public receiveFormRequest(){
+    @ExecutionTime()
+    public receiveFormRequest(): void{
         if(!this.negotiationDTO.isValidRequest()){
             this.messageView.update("Is not possible to add a negotiation whose date does not represent a working day")
         } else {
