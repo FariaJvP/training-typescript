@@ -12,3 +12,12 @@ if(requestform){
 } else {
     throw Error("Could not launch the application! please check the form for errors");
 }
+
+const importButtonFunction = document.querySelector("#import-button");
+if(importButtonFunction){
+    importButtonFunction.addEventListener('click', () => {
+        negotiationController.dataImport();
+    });
+} else {
+    throw Error("Import failure! please check the import feature")
+}
