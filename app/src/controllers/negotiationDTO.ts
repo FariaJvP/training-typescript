@@ -1,20 +1,19 @@
 import { Negotiation } from "../models/negotiation.js";
 import { WorkingDay } from "../enums/workingDay.js";
+import { domInjector } from "../decorators/domInjector.js";
 
 export class NegotiationDTO {
 
+    @domInjector("#date")
     private inputDate: HTMLInputElement; 
+    @domInjector("#quantity")
     private inputQuantity: HTMLInputElement;
+    @domInjector("#value")
     private inputValue: HTMLInputElement;
+
     private parsedDate: Date;
     private parsedQuantity: number;
     private parsedValue: number;
-    
-    constructor(){
-        this.inputDate = document.querySelector("#date") as HTMLInputElement
-        this.inputQuantity = document.querySelector("#quantity") as HTMLInputElement
-        this.inputValue = document.querySelector("#value") as HTMLInputElement
-    }
     
     public isValidRequest(): boolean{
         this.parseFormRequest();
