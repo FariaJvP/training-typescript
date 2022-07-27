@@ -2,6 +2,7 @@ import { ExecutionTime } from "../decorators/executionTime.js";
 import { NegotiationInterface } from "../interfaces/negotiationInterface.js";
 import { Negotiation } from "../models/negotiation.js";
 import { Negotiations } from "../models/negotiations.js";
+import { NegotiationsAPI } from "../service/NegotiationsAPI.js";
 import { MessageView } from "../views/message-view.js";
 import { NegotiationView } from "../views/negotiation-view.js";
 import { NegotiationDTO } from "./negotiationDTO.js";
@@ -11,6 +12,7 @@ export class NegotiationController {
     private negotiations = new Negotiations();
     private negotiationsView = new NegotiationView("#negotiationsView");
     private messageView = new MessageView("#viewMessage");
+    private negotiationsApi = new NegotiationsAPI();
     
     constructor(negotiationDTO: NegotiationDTO){
         this.negotiationDTO = negotiationDTO;
@@ -31,18 +33,14 @@ export class NegotiationController {
     }
 
 
-    dataImport():void{
-        fetch('http://localhost:8080/dados')
-            .then(response => response.json())
-            .then((apiData: Array<NegotiationInterface>) => {
-                apiData.map(data => {
-                    return new Negotiation(new Date(), data.vezes, data.montante)
-                }).forEach(negotiation => {
-                    this.negotiations.addNegotiation(negotiation);
-                    this.negotiationsView.update(this.negotiations);
-                    this.messageView.update("negotiation api imported");
-                })
-            });
+    public dataImport():void {
+        this.negotiationsApi.fetchNegotiations().then(apiData => {
+            return apiData.forEach(negotiation => {
+                this.negotiations.addNegotiation(negotiation);
+                this.negotiationsView.update(this.negotiations);
+                this.messageView.update("negotiation data imported from API");
+            })
+        });
     }
 
     private clearForm(): void {
