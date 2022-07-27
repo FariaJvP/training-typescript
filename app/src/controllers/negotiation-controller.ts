@@ -1,4 +1,6 @@
 import { ExecutionTime } from "../decorators/executionTime.js";
+import { NegotiationInterface } from "../interfaces/negotiationInterface.js";
+import { Negotiation } from "../models/negotiation.js";
 import { Negotiations } from "../models/negotiations.js";
 import { MessageView } from "../views/message-view.js";
 import { NegotiationView } from "../views/negotiation-view.js";
@@ -26,6 +28,21 @@ export class NegotiationController {
             this.messageView.update("negotiation added");
             this.clearForm();
         }
+    }
+
+
+    dataImport():void{
+        fetch('http://localhost:8080/dados')
+            .then(response => response.json())
+            .then((apiData: Array<NegotiationInterface>) => {
+                apiData.map(data => {
+                    return new Negotiation(new Date(), data.vezes, data.montante)
+                }).forEach(negotiation => {
+                    this.negotiations.addNegotiation(negotiation);
+                    this.negotiationsView.update(this.negotiations);
+                    this.messageView.update("negotiation api imported");
+                })
+            });
     }
 
     private clearForm(): void {
