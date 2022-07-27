@@ -19,4 +19,10 @@ export class Negotiation {
     get getValue(){
         return this._value;
     }
+
+    public isEqual(negotiation: Negotiation): boolean {
+        return this.getDate.getDate() === negotiation.getDate.getDate()
+        && this.getDate.getMonth() === negotiation.getDate.getMonth()
+        && this.getDate.getFullYear() === negotiation.getDate.getFullYear();
+    }
 }

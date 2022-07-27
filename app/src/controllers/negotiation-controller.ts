@@ -1,6 +1,7 @@
 import { ExecutionTime } from "../decorators/executionTime.js";
 import { Negotiations } from "../models/negotiations.js";
 import { NegotiationsAPI } from "../service/NegotiationsAPI.js";
+import { Negotiation } from "../models/negotiation.js";
 import { MessageView } from "../views/message-view.js";
 import { NegotiationView } from "../views/negotiation-view.js";
 import { NegotiationDTO } from "./negotiationDTO.js";
@@ -32,12 +33,21 @@ export class NegotiationController {
 
 
     public dataImport():void {
-        this.negotiationsApi.fetchNegotiations().then(apiData => {
-            return apiData.forEach(negotiation => {
+        this.negotiationsApi.fetchNegotiations().then((negotiationsList: Array<Negotiation>) => {
+            return negotiationsList.filter((incomingNegotiationFromAPI: Negotiation) => {
+                return !this.negotiations
+                .returnNegotiationsList()
+                .some((negotiationAlreadyImported: Negotiation) => incomingNegotiationFromAPI
+                    .isEqual(negotiationAlreadyImported)
+                );
+            })
+        })
+        .then((apiData: Array<Negotiation>) => {
+            return apiData.forEach((negotiation: Negotiation) => {
                 this.negotiations.addNegotiation(negotiation);
                 this.negotiationsView.update(this.negotiations);
                 this.messageView.update("negotiation data imported from API");
-            })
+            });
         });
     }
 
