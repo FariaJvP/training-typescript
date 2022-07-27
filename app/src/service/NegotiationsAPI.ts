@@ -13,9 +13,3 @@ export class NegotiationsAPI {
         });
     }
 }
-
-/*.forEach(negotiation => {
-                    this.negotiations.addNegotiation(negotiation);
-                    this.negotiationsView.update(this.negotiations);
-                    this.messageView.update("negotiation api imported");
-                })*/
