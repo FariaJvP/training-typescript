@@ -1,4 +1,6 @@
-export class Negotiation {
+import { Comparable } from "../interfaces/comparable.js";
+
+export class Negotiation implements Comparable<Negotiation> {
     private _date: Date;
     private _quantity: number;
     private _value: number;
